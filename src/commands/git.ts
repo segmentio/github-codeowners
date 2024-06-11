@@ -15,7 +15,7 @@ interface GitOptions {
 export const git = async (options: GitOptions) => {
   const gitCommand = calcGitCommand(options);
 
-  const diff = execSync(gitCommand).toString();
+  const diff = execSync(gitCommand, { maxBuffer: 1024 * 1024 * 10 }).toString();
 
   const changedPaths = diff.split('\n').filter(path => path.length > 0);
 
